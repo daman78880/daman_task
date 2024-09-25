@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>815858497439-dlumj2t3j1b97tba1f9a8ven9qn1plkb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.815858497439-dlumj2t3j1b97tba1f9a8ven9qn1plkb</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>815858497439-9j9sceatcjpijpvi8afehnq4v4pd9mg0.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBIqeF_iTMDdngI1_1HI3QbYz3okWxOHig</string>
+	<key>GCM_SENDER_ID</key>
+	<string>815858497439</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.daman.damanTask</string>
+	<key>PROJECT_ID</key>
+	<string>damantask</string>
+	<key>STORAGE_BUCKET</key>
+	<string>damantask.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:815858497439:ios:c5237c04e4328e3cdf6faa</string>
+</dict>
+</plist>

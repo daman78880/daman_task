@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "815858497439",
+    "project_id": "damantask",
+    "storage_bucket": "damantask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815858497439:android:8835497d84730c09df6faa",
+        "android_client_info": {
+          "package_name": "com.daman.daman_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815858497439-9j9sceatcjpijpvi8afehnq4v4pd9mg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daman.daman_task",
+            "certificate_hash": "32f888251b312e46308bcbf12c6faa4da624cfca"
+          }
+        },
+        {
+          "client_id": "815858497439-cq664ff4juckr8674botihvnk29u3m81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2UdsHJ6aADBr1h89nPC0k2Zb1oTLvswI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815858497439-cq664ff4juckr8674botihvnk29u3m81.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "815858497439-dlumj2t3j1b97tba1f9a8ven9qn1plkb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.daman.damanTask"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
