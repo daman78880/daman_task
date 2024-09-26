@@ -112,7 +112,12 @@ class AssetWidget extends StatelessWidget {
                     if (percentageCallback != null) {
                       percentageCallback!(progress);
                     }
-                    return const CircularProgressIndicator();
+                    return Center(
+                      child: SizedBox(
+                          width: 80.w,
+                          height: 80.w,
+                          child: const CircularProgressIndicator()),
+                    );
                   },
                 )),
           );
@@ -126,15 +131,6 @@ class AssetWidget extends StatelessWidget {
   }
 
   Widget loadingWidget({String? placeHolder}) {
-    // return AssetWidget(
-    //   asset: Asset(
-    //     type: AssetType.png,
-    //     path: ImageResource.dummyFlipPlace,
-    //   ),
-    //   boxFit: BoxFit.fill,
-    //   width: double.infinity,
-    //   height: double.infinity,
-    // );
     return const Center(child: Icon(Icons.error_outline, color: Colors.red));
   }
 }

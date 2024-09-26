@@ -7,12 +7,15 @@ import 'package:daman_task/core/common_widgets/common_click_widgets.dart';
 import '../../../core/text/app_text_widget.dart';
 import '../../../core/common_firebase/common_firebase_functions.dart';
 import '../../../core/theme/app_color_palette.dart';
+import '../../../core/utils.dart';
+import '../model/save_data_model.dart';
 
 extension HomeExtenstion on HomeScreen {
-  AppBar appBarHome(){
+  AppBar appBarHome() {
     return AppBar(
       backgroundColor: lightColorPalette.liteBlue,
       centerTitle: true,
+      leading: SizedBox.fromSize(),
       title: AppTextWidget(
         text: CommonStrings.memoryList.tr,
         style: CustomTextTheme.bigTitleStyle(
@@ -40,11 +43,33 @@ extension HomeExtenstion on HomeScreen {
     );
   }
 
-  Widget listOfData(){
-    return StreamBuilder(
-      stream: CommonFirebaseFunctions.getDataList(),
+  Widget listOfData() {
+    return StreamBuilder<List<SaveDataModel>>(
+      stream: getDataList(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: AppTextWidget(
+              text: snapshot.error.toString(),
+              style: CustomTextTheme.bigTitleStyle(
+                color: Colors.blue,
+              ),
+            ),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(
+            child: AppTextWidget(
+              text: CommonStrings.noMemoryList.tr,
+              style: CustomTextTheme.bigTitleStyle(
+                color: Colors.blue,
+              ),
+            ),
+          );
+        } else {
           return ListView.separated(
             separatorBuilder: (context, index) {
               return Container(
@@ -61,31 +86,24 @@ extension HomeExtenstion on HomeScreen {
               var item = snapshot.data?[index];
               return item != null
                   ? CommonClick(
-                onTap: () {
-                  controller.onClickItem(item);
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                  ),
-                  child: AppTextWidget(
-                      text: item.recordName ?? '',
-                      style: CustomTextTheme.bigTitleStyle(
-                        color: Colors.blue,
-                      )),
-                ),
-              )
+                      onTap: () {
+                        controller.onClickItem(item);
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                        ),
+                        child: AppTextWidget(
+                            text: item.recordName ?? '',
+                            style: CustomTextTheme.bigTitleStyle(
+                              color: Colors.blue,
+                            )),
+                      ),
+                    )
                   : const SizedBox();
             },
           );
-        } else {
-          return Center(
-              child: AppTextWidget(
-                  text: CommonStrings.noMemoryList.tr,
-                  style: CustomTextTheme.bigTitleStyle(
-                    color: Colors.blue,
-                  )));
         }
       },
     );

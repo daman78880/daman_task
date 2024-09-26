@@ -9,7 +9,6 @@ import 'package:get_storage/get_storage.dart';
 import 'core/routes/routes.dart';
 import 'core/theme/app_color_palette.dart';
 import 'core/translator/local_translation.dart';
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +17,6 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   await Firebase.initializeApp();
-
   // await Firebase.initializeApp(options: DefaultFirebaseConfig.platformOptions);
   await GetStorage.init();
   await CommonFunctionality.checkUserFirstTimeLoginOrNot();

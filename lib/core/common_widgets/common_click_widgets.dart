@@ -24,7 +24,7 @@ class CommonClick extends StatelessWidget {
           primaryColor: Colors.transparent,
         ),
         child: CupertinoButton.filled(
-          // focusColor: Colors.transparent,
+          focusColor: Colors.transparent,
           disabledColor: Colors.transparent,
           pressedOpacity: 1.0,
           borderRadius: BorderRadius.zero,

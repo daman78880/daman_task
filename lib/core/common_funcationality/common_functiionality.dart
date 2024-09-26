@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../snackbar/snackbar.dart';
 import '../storage/local_storage.dart';
 

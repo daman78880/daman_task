@@ -5,7 +5,6 @@ import 'package:daman_task/features/home/model/save_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../core/common_constants/common_constants.dart';
 import '../../../core/common_constants/common_strings.dart';
 import '../../../core/common_firebase/common_firebase_functions.dart';
@@ -37,7 +36,6 @@ class HomeController extends GetxController {
         await picker.pickMultiImage(limit: 3, maxWidth: 400, maxHeight: 400);
     if (images != null) {
       pickedImageList = images;
-      print('picked image list ${pickedImageList.length}');
     }
   }
 
@@ -99,7 +97,7 @@ class HomeController extends GetxController {
 
   addImageFromToList({required String recordName}) async {
     Get.back();
-    await Future.delayed(Duration(milliseconds: 50));
+    await Future.delayed(const Duration(milliseconds: 50));
     loading.value = true;
     if (pickedImageList.isNotEmpty) {
       for (var element in pickedImageList ?? []) {
@@ -107,7 +105,6 @@ class HomeController extends GetxController {
         XFile? compressImageFile = await compressImage(
             file: element, lowQuality: await (moreThanFiveMb(fileSize ?? 0)));
         final fileSizeAfter = await element.length();
-        print('size after compress ${fileSize}');
         if (fileSizeAfter > CommonConstants.imageRestrictionSize) {
           snackbar(CommonStrings.imageRestrictionMsg.tr);
         } else {
@@ -127,8 +124,8 @@ class HomeController extends GetxController {
       if (listOfUrl.isNotEmpty) {
         var upload = await CommonFirebaseFunctions.addImagesToFirestore(
             recordName, listOfUrl);
-        // await CommonFirebaseFunctions.addImagesToFirestore(recordName,['https://www.shutterstock.com/image-photo/macro-imagr-bee-beautiful-cosmos-260nw-1282844242.jpg']);
       }
+      // await CommonFirebaseFunctions.addImagesToFirestore(recordName,['https://www.shutterstock.com/image-photo/macro-imagr-bee-beautiful-cosmos-260nw-1282844242.jpg']);
       loading.value = false;
     } else {
       loading.value = false;

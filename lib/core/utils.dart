@@ -1,8 +1,12 @@
+import 'package:daman_task/core/routes/routes.dart';
+import 'package:daman_task/core/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../features/home/model/save_data_model.dart';
 
 bool validateEmail({required String email}) {
   final bool emailValid = RegExp(
@@ -40,4 +44,33 @@ Future<XFile?> compressImage(
 Future<bool> moreThanFiveMb(int size) async {
   const fiveMbInBytes = 5 * 1024 * 1024; // 5 MB in bytes
   return size > fiveMbInBytes;
+}
+
+Stream<List<SaveDataModel>> getDataList() async* {
+  String? currentUserId = FirebaseAuth.instance.currentUser?.uid;
+  if (currentUserId == null) {
+    snackbar('User is not logged in.');
+    Get.offAllNamed(Routes.loginScreen);
+    return;
+  }
+  await for (QuerySnapshot snap in FirebaseFirestore.instance
+      .collection('Data')
+      .where('user_id', isEqualTo: currentUserId)
+      .snapshots()) {
+    if (snap.docs.isNotEmpty) {
+      try {
+        List<SaveDataModel> listOfData = snap.docs
+            .map(
+              (e) => SaveDataModel.fromJson(e.data() as Map<String, dynamic>),
+            )
+            .toList();
+        yield listOfData;
+      } catch (e) {
+        print('Error mapping Firestore data: $e');
+        yield []; // Yield an empty list in case of error
+      }
+    } else {
+      yield []; // Yield an empty list if no documents are found
+    }
+  }
 }

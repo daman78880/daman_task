@@ -118,7 +118,11 @@ class CommonFirebaseFunctions {
         return;
       }
       var damanDocRef = _firestore.collection('Data').doc(recordName).set(
-            SaveDataModel(userId: currentUserId, imageUrls: imageUrls,recordName: recordName).toJson(),
+            SaveDataModel(
+                    userId: currentUserId,
+                    imageUrls: imageUrls,
+                    recordName: recordName)
+                .toJson(),
             SetOptions(merge: true),
           );
       snackbar('Images saved successfully to Firestore.');
@@ -135,33 +139,33 @@ class CommonFirebaseFunctions {
       Get.offAllNamed(Routes.loginScreen);
       return;
     }
+
+    // Fetch snapshots asynchronously
     await for (QuerySnapshot snap in _firestore
         .collection('Data')
         .where('user_id', isEqualTo: currentUserId)
-        // .orderBy('createdAt', descending: true)
         .snapshots()) {
-          print('snap data ${snap.docs.first.data()}');
-          print('snap data ${snap.docChanges?.first}');
       if (snap.docs.isNotEmpty) {
         try {
-
+          // Map documents to a list of SaveDataModel
           List<SaveDataModel> listOfData = snap.docs
               .map(
                 (e) => SaveDataModel.fromJson(e.data() as Map<String, dynamic>),
-              )
+          )
               .toList();
-          // SaveDataModel.fromJson(e),).toList();
-          print('list of data is ${listOfData.length}');
+
+          // Yield the data to the stream
           yield listOfData;
         } catch (e) {
-          print(e);
-          yield [];
+          print('Error mapping Firestore data: $e');
+          yield []; // Yield an empty list in case of error
         }
       } else {
-        yield [];
+        yield []; // Yield an empty list if no documents are found
       }
     }
   }
+
 
   static Future<SaveDataModel?> getDataByDocumentId(String documentId) async {
     String? currentUserId = _auth.currentUser?.uid;
@@ -173,16 +177,14 @@ class CommonFirebaseFunctions {
 
     try {
       // Fetch the document by documentId from the Firestore collection 'Data'
-      DocumentSnapshot docSnapshot = await _firestore
-          .collection('Data')
-          .doc(documentId)
-          .get();
+      DocumentSnapshot docSnapshot =
+          await _firestore.collection('Data').doc(documentId).get();
 
       // Check if the document exists
       if (docSnapshot.exists) {
         // Convert the document's data to a SaveDataModel
-        SaveDataModel data = SaveDataModel.fromJson(
-            docSnapshot.data() as Map<String, dynamic>);
+        SaveDataModel data =
+            SaveDataModel.fromJson(docSnapshot.data() as Map<String, dynamic>);
         print('Data retrieved: ${data.toString()}');
         return data; // Return the model
       } else {
@@ -195,5 +197,4 @@ class CommonFirebaseFunctions {
       return null;
     }
   }
-
 }
